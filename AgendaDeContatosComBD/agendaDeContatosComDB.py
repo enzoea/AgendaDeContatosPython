@@ -1,4 +1,3 @@
-
 import mysql.connector
 # Biblioteca de comandos de Sistema operacional
 import os
@@ -11,10 +10,10 @@ def limpar_tela():
 
 # Conectar ao banco de dados MySQL
 conexao = mysql.connector.connect(
-    host="",
-    user="",
-    password="",
-    database=""
+    host="localhost",
+    user="root",
+    password="enzo123",
+    database="agenda"
 )
 cursor = conexao.cursor()
 
@@ -33,7 +32,7 @@ contatos = []
 # Esta função criar_contato recebe duas parâmetros, nomee telefone, cria um dicionário com essas informações e 
 # adiciona o dicionário à lista contatos. Em seguida, exibe uma mensagem informando que o contato foi criado com sucesso.
 def criar_contato(nome, telefone):
-    sql = "COMANDOS SQL + VALUES (%s, %s)"
+    sql = "INSERT INTO contatos (nome, telefone) VALUES (%s, %s)"
     valores = (nome, telefone)
     cursor.execute(sql, valores)
     conexao.commit()
@@ -43,7 +42,7 @@ def criar_contato(nome, telefone):
 # A função listar_contatosverifica se a lista contatosestá vazia. Se estiver vazio, exibe uma mensagem informando que nenhum contato foi encontrado. 
 # Caso contrário, ela percorre a lista de contatos e exibe os detalhes de cada contato, incluindo nome e telefone.
 def listar_contatos():
-    cursor.execute("")
+    cursor.execute("SELECT * FROM contatos")
     resultados = cursor.fetchall()
     if not resultados:
         print("Nenhum contato encontrado.")
@@ -76,7 +75,7 @@ def excluir_contato(indice):
     resultados = cursor.fetchall()
     if indice >= 0 and indice < len(resultados):
         contato_id = resultados[indice][0]
-        sql = "COMANDO DELETAR WHERE id = %s"
+        sql = "DELETE FROM contatos WHERE id = %s"
         valores = (contato_id,)
         cursor.execute(sql, valores)
         conexao.commit()
