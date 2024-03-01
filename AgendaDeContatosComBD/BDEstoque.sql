@@ -6,4 +6,3 @@ CREATE TABLE IF NOT EXISTS contatos (
     nome VARCHAR(255) NOT NULL,
     telefone VARCHAR(20) NOT NULL
 );
-
